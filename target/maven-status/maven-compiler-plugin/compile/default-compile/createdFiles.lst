@@ -1,0 +1,5 @@
+org/nban/serjson/JSONParse.class
+org/nban/serjson/FieldNameContext.class
+org/nban/serjson/DateFieldNameDefine.class
+org/nban/serjson/FieldNamePolicy.class
+org/nban/serjson/FieldNameDefine.class
