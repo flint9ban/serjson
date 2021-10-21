@@ -12,7 +12,7 @@ import lombok.Setter;
 public class DateFieldNameDefine extends FieldNameDefine {
 
     /**
-     * 日期格式ßß
+     * 日期格式
      */
     private String dateFormat;
 

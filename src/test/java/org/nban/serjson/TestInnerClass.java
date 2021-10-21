@@ -14,4 +14,6 @@ public class TestInnerClass {
     private String b;
 
     private String c;
+
+    private String jsonValue;
 }

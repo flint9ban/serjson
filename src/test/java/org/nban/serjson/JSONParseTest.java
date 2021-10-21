@@ -21,6 +21,7 @@ public class JSONParseTest {
                 .addFieldNameDefine("testInnerClass.b","b")
                 .addFieldNameDefine("testInnerClass.c","c")
                 .addFieldNameDefine("innerClassList","$.innerClassList")
+                .addFieldNameDefine("innerClassList.jsonValue","$")
                 .addFieldNameDefine("innerClassList.b","bb")
                 .addFieldNameDefine("innerClassList.c","cc");
         FieldNamePolicy fieldNamePolicy = new FieldNamePolicy(fieldNameContext);
