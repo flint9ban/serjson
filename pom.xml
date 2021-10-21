@@ -6,7 +6,7 @@
 
     <groupId>org.9ban</groupId>
     <artifactId>serjson</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>v1.0.0</version>
     <properties>
         <java.version>1.8</java.version>
     </properties>
