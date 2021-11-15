@@ -12,6 +12,10 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.Temporal;
 import java.util.Collection;
 
 /**
@@ -102,7 +106,17 @@ public class JSONParse {
             }
         }else {
             Type propertyType = getPropertyType(propertyDescriptor);
-            return TypeUtils.castToJavaBean(jsonValue,TypeUtils.getClass(propertyType));
+            Class<?> aClass = TypeUtils.getClass(propertyType);
+            if (LocalDate.class.equals(aClass)) {
+                FieldNameDefine fieldDefine = fieldNamePolicy.getFieldDefine(parentPath, propertyDescriptor);
+                return convertLocalDate(jsonValue,fieldDefine);
+            }else if(LocalTime.class.equals(aClass)){
+                FieldNameDefine fieldDefine = fieldNamePolicy.getFieldDefine(parentPath, propertyDescriptor);
+                return convertLocalTime(jsonValue,fieldDefine);
+            }else {
+                return TypeUtils.castToJavaBean(jsonValue,TypeUtils.getClass(propertyType));
+            }
+
         }
 
     }
@@ -129,4 +143,29 @@ public class JSONParse {
         }
         return null;
     }
+
+    private LocalDate convertLocalDate(Object jsonValue,FieldNameDefine fieldNameDefine){
+        if (jsonValue == null) {
+            return null;
+        }
+        if (fieldNameDefine instanceof DateFieldNameDefine) {
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(((DateFieldNameDefine) fieldNameDefine).getDateFormat());
+            return LocalDate.parse(jsonValue.toString(),dateTimeFormatter);
+        }else {
+            return LocalDate.parse(jsonValue.toString());
+        }
+    }
+
+    private LocalTime convertLocalTime(Object jsonValue,FieldNameDefine fieldNameDefine){
+        if (jsonValue == null) {
+            return null;
+        }
+        if (fieldNameDefine instanceof DateFieldNameDefine) {
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(((DateFieldNameDefine) fieldNameDefine).getDateFormat());
+            return LocalTime.parse(jsonValue.toString(),dateTimeFormatter);
+        }else {
+            return LocalTime.parse(jsonValue.toString());
+        }
+    }
+
 }
